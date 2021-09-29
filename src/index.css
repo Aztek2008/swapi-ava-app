@@ -1,0 +1,14 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+
+li > span,
+.select-dropdown {
+  font-size: 10px !important;
+}
+
+label {
+  font-size: 12px !important;
+}
+
+.spanStyle {
+  display: flex;
+}
