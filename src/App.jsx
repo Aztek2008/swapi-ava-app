@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { BreadCrumbBar } from './components/BreadCrumbBar';
 import { CharacterContext } from './context';
@@ -10,6 +11,8 @@ import 'materialize-css';
 export const App = () => {
   const routes = useRoutes();
 
+  const [loading, setLoading] = useState(false);
+  const [onOrOption, setOnOrOption] = useState(false);
   const [filmUrl, setfilmUrl] = useState('');
   const [filterByFilm, setfilterByFilm] = useState('');
   const [speciesUrl, setspeciesUrl] = useState('');
@@ -61,6 +64,8 @@ export const App = () => {
   };
 
   const states = {
+    loading,
+    onOrOption,
     filmUrl,
     yearMin,
     yearMax,
@@ -83,3 +88,13 @@ export const App = () => {
     </CharacterContext.Provider>
   );
 };
+
+App.propTypes = {};
+
+// optionalArray: PropTypes.array,
+// optionalBool: PropTypes.bool,
+// optionalFunc: PropTypes.func,
+// optionalNumber: PropTypes.number,
+// optionalObject: PropTypes.object,
+// optionalString: PropTypes.string,
+// optionalSymbol: PropTypes.symbol,

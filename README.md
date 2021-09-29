@@ -1,6 +1,8 @@
 # swapi-ava-app
 
-#React application that displays a filterable list of characters from the movie franchise Star Wars. Querying data from an open API called SWAPI (Star Wars API)
+#React application that displays a filterable list of characters from the movie franchise Star Wars. Querying data from an open API called SWAPI (Star Wars API).
+
+npm run server shoud be run to start App and fetch all json needed.
 
 #App Overview
 The app consist of a main view that will display the list of characters and a filter section, where the user can filter the characters by certain criteria.

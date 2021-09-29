@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import films from '../collections/films.json';
 import species from '../collections/species.json';
@@ -85,3 +86,25 @@ export const CharacterDetailsCard = () => {
     </div>
   );
 };
+
+CharacterDetailsCard.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.object),
+  species: PropTypes.arrayOf(PropTypes.object),
+  characters: PropTypes.arrayOf(PropTypes.object),
+  starships: PropTypes.arrayOf(PropTypes.object),
+  planets: PropTypes.arrayOf(PropTypes.object),
+  id: PropTypes.number,
+  characterImg: PropTypes.string,
+  characterFilms: PropTypes.array,
+  characterShips: PropTypes.array,
+  characterHomeworld: PropTypes.string,
+  characterKind: PropTypes.string,
+};
+
+// optionalArray: PropTypes.array,
+// optionalBool: PropTypes.bool,
+// optionalFunc: PropTypes.func,
+// optionalNumber: PropTypes.number,
+// optionalObject: PropTypes.object,
+// optionalString: PropTypes.string,
+// optionalSymbol: PropTypes.symbol,

@@ -1,6 +1,9 @@
 {
   "name": "swapi-ava-app",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.16.0"
+  },
   "private": true,
   "type": "module",
   "dependencies": {
@@ -9,6 +12,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "node-fetch": "^3.0.0",
     "nouislider": "^15.4.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dnd": "^14.0.4",
     "react-dnd-html5-backend": "^14.0.2",
