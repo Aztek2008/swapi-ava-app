@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { BreadCrumbBar } from './components/BreadCrumbBar';
-import { species, films, years } from './enumCollections';
 import { CharacterContext } from './context';
 import { useRoutes } from './routes';
 import * as types from './types';
@@ -9,98 +8,68 @@ import * as types from './types';
 import 'materialize-css';
 
 export const App = () => {
-  // useEffect(() => {
-  //   const persistedFilms = localStorage.getItem('films') || [];
-  //   setCharacterFilms(JSON.parse(persistedFilms));
-  // }, []);
-
   const routes = useRoutes();
-  // const [films, setFilms] = useState([]);
-  const [characters, setCharacters] = useState([]);
-  const [character, setCharacter] = useState({});
-  const [characterFilms, setCharacterFilms] = useState([]);
-  const [characterSpecies, setCharacterSpecies] = useState([]);
-  const [starships, setCharacterStarships] = useState([]);
-  const [homeworld, setHomeworld] = useState('');
-  const [filmUrls, setFilmUrls] = useState([]);
-  const [starshipUrls, setStarshipsUrls] = useState([]);
-  const [homeworldUrl, setHomeworldUrl] = useState('');
-  const [characterSpeciesUrls, setCharacterSpeciesUrls] = useState([]);
+
+  const [filmUrl, setfilmUrl] = useState('');
   const [filterByFilm, setfilterByFilm] = useState('');
-  const [filterBySpecies, setfilterBySpecies] = useState('');
-  const [filterByYear, setfilterByYear] = useState('');
+  const [speciesUrl, setspeciesUrl] = useState('');
+  const [yearMin, setyearMin] = useState('');
+  const [yearMax, setyearMax] = useState('');
   const [filterCharactersByInput, setfilterCharactersByInput] = useState([]);
+  const [filterCharactersByFilmOptions, setfilterCharactersByFilmOptions] =
+    useState([]);
+  const [
+    filterCharactersBySpeciesOptions,
+    setfilterCharactersBySpeciesOptions,
+  ] = useState([]);
+  const [filterCharactersByYearOptions, setfilterCharactersByYearOptions] =
+    useState([]);
 
   const dispatchEvent = (actionType, payload) => {
     switch (actionType) {
-      case types.SET_CHARACTER:
-        setCharacter(payload);
-        return;
-      case types.SET_CHARACTERS:
-        setCharacters(payload);
-        return;
-      case types.SET_CHARACTER_FILMS:
-        setCharacterFilms(payload);
-        return;
-      case types.SET_CHARACTER_SPECIES:
-        setCharacterSpecies(payload);
-        return;
-      case types.SET_CHARACTER_STARSHIPS:
-        setCharacterStarships(payload);
-        return;
-      case types.SET_HOMEWORLD:
-        setHomeworld(payload);
-        return;
-      case types.SET_CHARACTER_SPECIES_URLS:
-        setCharacterSpeciesUrls(payload);
-        return;
-      case types.SET_FILM_URLS:
-        setFilmUrls(payload);
-        return;
-      case types.SET_STARSHIPS_URLS:
-        setStarshipsUrls(payload);
-        return;
-      case types.SET_HOMEWORLD_URL:
-        setHomeworldUrl(payload);
+      case types.SET_FILM_URL:
+        setfilmUrl(payload);
         return;
       case types.SET_FILTER_BY_FILM:
         setfilterByFilm(payload);
-        console.log(`filterByFilm: `, filterByFilm);
-        console.log(`filterByFilm payload: `, payload);
-
         return;
       case types.SET_FILTER_BY_SPECIES:
-        setfilterBySpecies(payload);
+        setspeciesUrl(payload);
         return;
-      case types.SET_FILTER_BY_YEAR:
-        setfilterByYear(payload);
+      case types.SET_MIN_YEAR_OPTION:
+        setyearMin(payload);
+        return;
+      case types.SET_MAX_YEAR_OPTION:
+        setyearMax(payload);
         return;
       case types.SET_CHARACTERS_BY_INPUT:
         setfilterCharactersByInput(payload);
         return;
+      case types.SET_CHARACTERS_BY_FILM_OPTION:
+        setfilterCharactersByFilmOptions(payload);
+        return;
+      case types.SET_CHARACTERS_BY_SPECIES_OPTION:
+        setfilterCharactersBySpeciesOptions(payload);
+        return;
+      case types.SET_CHARACTERS_BY_YEAR_OPTION:
+        setfilterCharactersByYearOptions(payload);
+        return;
+
       default:
         return;
     }
   };
 
   const states = {
-    characters,
-    character,
-    characterFilms,
-    characterSpecies,
-    characterSpeciesUrls,
-    species,
-    films,
-    years,
-    starships,
-    homeworld,
-    filmUrls,
-    starshipUrls,
-    homeworldUrl,
+    filmUrl,
+    yearMin,
+    yearMax,
+    speciesUrl,
     filterByFilm,
-    filterBySpecies,
-    filterByYear,
     filterCharactersByInput,
+    filterCharactersByFilmOptions,
+    filterCharactersBySpeciesOptions,
+    filterCharactersByYearOptions,
   };
 
   return (

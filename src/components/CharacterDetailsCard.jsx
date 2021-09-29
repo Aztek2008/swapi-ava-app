@@ -1,86 +1,48 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import axios from 'axios';
-import * as types from '../types';
-import { CharacterContext } from '../context';
+import films from '../collections/films.json';
+import species from '../collections/species.json';
+import characters from '../collections/people.json';
+import starships from '../collections/starships.json';
+import planets from '../collections/planets.json';
 
 export const CharacterDetailsCard = () => {
   const { id } = useParams();
-  const { states, dispatchEvent } = useContext(CharacterContext);
-  const url = id && `https://swapi.dev/api/people/${id}/`;
-  const imgUrl =
-    id && `https://starwars-visualguide.com/assets/img//characters/${id}.jpg`;
+  const characterImg = `https://starwars-visualguide.com/assets/img//characters/${id}.jpg`;
+  const titleStyle = { color: '#b88888', fontWeight: 900, fontSize: '32px' };
+  const currentCharacter = characters[id - 1];
+  let characterFilms = [];
+  let characterShips = [];
+  let characterHomeworld = '';
+  let characterKind = '';
 
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((result) => {
-        dispatchEvent(types.SET_CHARACTER, result.data);
-        dispatchEvent(types.SET_FILM_URLS, result.data.films);
-        dispatchEvent(types.SET_STARSHIPS_URLS, result.data.starships);
-        dispatchEvent(types.SET_CHARACTER_SPECIES_URLS, result.data.species);
-        dispatchEvent(types.SET_HOMEWORLD_URL, result.data.homeworld);
+  const mapStatefromUrls = (urlArr, collection, characteristic) => {
+    urlArr.map((url) =>
+      collection.filter((element) => {
+        if (url === element.url) {
+          if (typeof urlArr === 'string') {
+            characteristic = element.name;
+          }
+          characteristic.push(element.title || element.name);
+        }
       })
-      .catch((e) => {
-        throw new Error(e.message);
-      });
-  }, [url]);
+    );
+  };
 
-  useEffect(() => {
-    states.filmUrls.map(async (url) => {
-      await axios
-        .get(url)
-        .then((film) =>
-          dispatchEvent(
-            types.SET_CHARACTER_FILMS,
-            (prev) =>
-              !prev.includes(film.data.title) && [...prev, film.data.title]
-          )
-        )
-        .catch((e) => {
-          throw new Error(e.message);
-        });
-    });
-  }, [states.filmUrls]);
+  mapStatefromUrls(currentCharacter.films, films, characterFilms);
+  mapStatefromUrls(currentCharacter.starships, starships, characterShips);
 
-  useEffect(() => {
-    states.characterSpeciesUrls.map(async (url) => {
-      await axios
-        .get(url)
-        .then((species) =>
-          dispatchEvent(types.SET_CHARACTER_SPECIES, species.data.name)
-        )
-        .catch((e) => {
-          throw new Error(e.message);
-        });
-    });
-  }, [states.characterSpeciesUrls]);
+  species.filter((element) => {
+    if (currentCharacter.species[0] === element.url) {
+      characterKind = element.name;
+    }
+  });
 
-  useEffect(() => {
-    states.starshipUrls.map(async (url) => {
-      await axios
-        .get(url)
-        .then((film) =>
-          dispatchEvent(types.SET_CHARACTER_STARSHIPS, (prev) => [
-            ...prev,
-            film.data.name,
-          ])
-        )
-        .catch((e) => {
-          throw new Error(e.message);
-        });
-    });
-  }, [states.starshipUrls]);
-
-  useEffect(() => {
-    states.homeworldUrl &&
-      axios
-        .get(states.homeworldUrl)
-        .then((planet) => dispatchEvent(types.SET_HOMEWORLD, planet.data.name))
-        .catch((e) => {
-          throw new Error(e.message);
-        });
-  }, [states.homeworldUrl]);
+  planets.filter((planet) => {
+    if (currentCharacter.homeworld === planet.url) {
+      characterHomeworld = planet.name;
+    }
+  });
 
   return (
     <div>
@@ -88,40 +50,33 @@ export const CharacterDetailsCard = () => {
         <div className='col s10 m12'>
           <div className='card'>
             <div className='card-image'>
-              <img src={imgUrl} alt={states.character.name} />
-              <span
-                className='card-title'
-                style={{ color: '#b88888', fontWeight: 900, fontSize: '32px' }}
-              >
-                <b>{states.character.name}</b>
+              <img src={characterImg} alt={currentCharacter.name} />
+              <span className='card-title' style={titleStyle}>
+                <b>{currentCharacter.name}</b>
               </span>
             </div>
             <article className='card-content'>
               <div className='spanStyle'>
                 <span style={{ minWidth: '20%' }}>Films:</span>
-                <span> {states.characterFilms.join(', ')} </span>
+                <span> {characterFilms.join(', ')} </span>
               </div>
 
               <div className='spanStyle'>
                 <span style={{ width: '20%' }}>Species: </span>
-                <span>
-                  {states.characterSpecies.name
-                    ? states.characterSpecies.name
-                    : 'Not specified'}
-                </span>
+                <span>{characterKind ? characterKind : 'Not specified'}</span>
               </div>
 
               <div className='spanStyle'>
                 <span style={{ minWidth: '20%' }}>Spaceships: </span>
                 <span>
-                  {states.starships.length > 0
-                    ? states.starships.join(', ')
+                  {characterShips.length > 0
+                    ? characterShips.join(', ')
                     : 'Not specified'}
                 </span>
               </div>
               <div className='spanStyle'>
                 <span style={{ minWidth: '20%' }}>Homeworld: </span>
-                <span> {states.homeworld}</span>
+                <span> {characterHomeworld}</span>
               </div>
             </article>
           </div>

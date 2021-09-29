@@ -1,15 +1,20 @@
 import React, { useContext } from 'react';
 import { CharacterContext } from '../context';
 import { SET_CHARACTERS_BY_INPUT } from '../types';
+import characters from '../collections/people.json';
 
 export const InputFilter = () => {
-  const { states, dispatchEvent } = useContext(CharacterContext);
+  const { dispatchEvent } = useContext(CharacterContext);
 
   const handleInputChange = (e) => {
-    let filteredData = states.characters.filter((value) => {
-      return value.name.toLowerCase().includes(e.target.value.toLowerCase());
-    });
+    let filteredData = characters.filter((value) =>
+      value.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
     dispatchEvent(SET_CHARACTERS_BY_INPUT, filteredData);
+
+    // CLEAR STATE ARRAY OF CHARACTERS WHEN INPUT currentCharacter
+    e.target.textLength === 0 && dispatchEvent(SET_CHARACTERS_BY_INPUT, []);
   };
 
   return (

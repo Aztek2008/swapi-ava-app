@@ -1,32 +1,23 @@
-import React, { useContext, useEffect } from 'react';
-import * as types from '../types';
+import React, { useContext } from 'react';
 import { CharacterContext } from '../context';
-import { swapiFetcher } from '../services/swapiFetcher';
 import { CharacterListItem } from './CharacterListItem';
+import characters from '../collections/people.json';
 
 export const CharacterList = () => {
-  const { states, dispatchEvent } = useContext(CharacterContext);
+  const { states } = useContext(CharacterContext);
 
-  useEffect(() => {
-    swapiFetcher('people')
-      .then((response) => {
-        dispatchEvent(types.SET_CHARACTERS, response.data.results);
-      })
-      .catch((e) => {
-        throw new Error(e.message);
-      });
-  }, []);
-
-  const filteredCharacters = states.characters.filter(
-    (character) =>
-      Object.values(character).includes(states.filterByFilm) &&
-      Object.values(character).includes(states.filterBySpecies) &&
-      Object.values(character).includes(states.filterByYear)
-  );
+  const filteredCharacters =
+    states.filterCharactersByFilmOptions.length > 0
+      ? states.filterCharactersByFilmOptions
+      : states.filterCharactersBySpeciesOptions.length > 0
+      ? states.filterCharactersBySpeciesOptions
+      : states.filterCharactersByYearOptions.length > 0
+      ? states.filterCharactersByYearOptions
+      : characters;
 
   const currentCharacters = states.filterCharactersByInput.length
     ? states.filterCharactersByInput
-    : states.characters;
+    : filteredCharacters;
 
   return (
     <div className='collection'>
