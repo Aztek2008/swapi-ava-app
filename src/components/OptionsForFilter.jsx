@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { CharacterContext } from '../context';
 import * as types from '../types';
 import { years } from '../collections/years';
@@ -8,6 +9,8 @@ import characters from '../collections/people.json';
 
 export const OptionsForFilter = () => {
   const { states, dispatchEvent } = useContext(CharacterContext);
+  let optionsFilmUrl = '';
+  let optionsSpeciesUrl = '';
 
   useEffect(() => {
     const filteredByFilmCharacters = characters.filter((character) =>
@@ -60,9 +63,6 @@ export const OptionsForFilter = () => {
       dispatchEvent(types.SET_CHARACTERS_BY_YEAR_OPTION, []);
     }
   }, [states.filmUrl, states.speciesUrl, states.yearMin, states.yearMax]);
-
-  let optionsFilmUrl = '';
-  let optionsSpeciesUrl = '';
 
   const makeFilmUrlFromTitle = (filterValue) => {
     films.filter((element) => {
@@ -139,7 +139,7 @@ export const OptionsForFilter = () => {
           <option value='' defaultValue={states.yearMin}>
             Choose min...
           </option>
-          {years.map((year, idx) => (
+          {years.sort().map((year, idx) => (
             <option key={idx} value={year}>
               {year}
             </option>
@@ -150,7 +150,7 @@ export const OptionsForFilter = () => {
           <option value='' defaultValue={states.yearMax}>
             Choose max...
           </option>
-          {years.map((year, idx) => (
+          {years.sort().map((year, idx) => (
             <option key={idx} value={year}>
               {year}
             </option>
@@ -160,4 +160,27 @@ export const OptionsForFilter = () => {
       </div>
     </section>
   );
+};
+
+OptionsForFilter.propTypes = {
+  types: PropTypes.arrayOf(PropTypes.string),
+  years: PropTypes.arrayOf(PropTypes.string),
+  films: PropTypes.arrayOf(PropTypes.object),
+  species: PropTypes.arrayOf(PropTypes.object),
+  characters: PropTypes.arrayOf(PropTypes.object),
+  states: PropTypes.shape({
+    loading: PropTypes.bool,
+    onOrOption: PropTypes.string,
+    filmUrl: PropTypes.string,
+    yearMin: PropTypes.string,
+    yearMax: PropTypes.string,
+    speciesUrl: PropTypes.string,
+    filterByFilm: PropTypes.arrayOf(PropTypes.object),
+    filterCharactersByInput: PropTypes.arrayOf(PropTypes.object),
+    filterCharactersByFilmOptions: PropTypes.arrayOf(PropTypes.object),
+    filterCharactersBySpeciesOptions: PropTypes.arrayOf(PropTypes.object),
+    filterCharactersByYearOptions: PropTypes.arrayOf(PropTypes.object),
+  }),
+  dispatchEvent: PropTypes.func,
+  filterValue: PropTypes.string,
 };

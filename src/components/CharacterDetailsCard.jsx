@@ -6,6 +6,7 @@ import species from '../collections/species.json';
 import characters from '../collections/people.json';
 import starships from '../collections/starships.json';
 import planets from '../collections/planets.json';
+import { makeStateFromUrls } from '../services/makeStateFromUrls';
 
 export const CharacterDetailsCard = () => {
   const { id } = useParams();
@@ -14,35 +15,24 @@ export const CharacterDetailsCard = () => {
   const currentCharacter = characters[id - 1];
   let characterFilms = [];
   let characterShips = [];
-  let characterHomeworld = '';
   let characterKind = '';
+  let characterHomeworld = '';
 
-  const mapStatefromUrls = (urlArr, collection, characteristic) => {
-    urlArr.map((url) =>
-      collection.filter((element) => {
-        if (url === element.url) {
-          if (typeof urlArr === 'string') {
-            characteristic = element.name;
-          }
-          characteristic.push(element.title || element.name);
-        }
-      })
-    );
-  };
-
-  mapStatefromUrls(currentCharacter.films, films, characterFilms);
-  mapStatefromUrls(currentCharacter.starships, starships, characterShips);
+  makeStateFromUrls(currentCharacter.films, films, characterFilms);
+  makeStateFromUrls(currentCharacter.starships, starships, characterShips);
 
   species.filter((element) => {
     if (currentCharacter.species[0] === element.url) {
       characterKind = element.name;
     }
+    return element.name;
   });
 
   planets.filter((planet) => {
     if (currentCharacter.homeworld === planet.url) {
       characterHomeworld = planet.name;
     }
+    return planet.name;
   });
 
   return (
@@ -64,7 +54,7 @@ export const CharacterDetailsCard = () => {
 
               <div className='spanStyle'>
                 <span style={{ width: '20%' }}>Species: </span>
-                <span>{characterKind ? characterKind : 'Not specified'}</span>
+                <span>{characterKind ? characterKind : 'Human'}</span>
               </div>
 
               <div className='spanStyle'>
@@ -99,12 +89,7 @@ CharacterDetailsCard.propTypes = {
   characterShips: PropTypes.array,
   characterHomeworld: PropTypes.string,
   characterKind: PropTypes.string,
+  urlArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  collection: PropTypes.arrayOf(PropTypes.object),
+  characteristic: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };
-
-// optionalArray: PropTypes.array,
-// optionalBool: PropTypes.bool,
-// optionalFunc: PropTypes.func,
-// optionalNumber: PropTypes.number,
-// optionalObject: PropTypes.object,
-// optionalString: PropTypes.string,
-// optionalSymbol: PropTypes.symbol,

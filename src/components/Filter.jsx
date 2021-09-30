@@ -1,9 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { AndOrToggler } from './AndOrToggler';
-import { InputFilter } from './InputFilter';
-import { OptionsForFilter } from './OptionsForFilter';
+import PropTypes from 'prop-types';
 import * as types from '../types';
+import { InputFilter } from './InputFilter';
+import { AndOrToggler } from './AndOrToggler';
 import { CharacterContext } from '../context';
+import { OptionsForFilter } from './OptionsForFilter';
+
+const dropInputs = document.querySelectorAll(
+  '.select-dropdown.dropdown-trigger'
+);
 const btnStyle = { position: 'absolute', top: '100px', fontSize: '12px' };
 const togglerContStyle = {
   display: 'flex',
@@ -14,12 +19,15 @@ const togglerContStyle = {
 
 export const Filter = () => {
   useEffect(() => {
+    // INITIATION OPTIONS DROPDOWN
     window.M.AutoInit();
   }, []);
 
   const { dispatchEvent } = useContext(CharacterContext);
 
   const clearOptions = () => {
+    dropInputs.forEach((input) => (input.value = 'Choose...'));
+
     dispatchEvent(types.SET_FILM_URL, '');
     dispatchEvent(types.SET_FILTER_BY_SPECIES, '');
     dispatchEvent(types.SET_MIN_YEAR_OPTION, '');
@@ -42,4 +50,13 @@ export const Filter = () => {
       </div>
     </section>
   );
+};
+
+Filter.propTypes = {
+  types: PropTypes.arrayOf(PropTypes.string),
+  InputFilter: PropTypes.element,
+  AndOrToggler: PropTypes.element,
+  CharacterContext: PropTypes.element,
+  OptionsForFilter: PropTypes.element,
+  dispatchEvent: PropTypes.func,
 };

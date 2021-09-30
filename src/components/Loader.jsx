@@ -3,7 +3,7 @@ import React from 'react';
 export const Loader = () => {
   return (
     <div class='preloader-wrapper small active'>
-      <div class='spinner-layer spinner-green-only'>
+      <div class='spinner-layer spinner-red-only'>
         <div class='circle-clipper left'>
           <div class='circle'></div>
         </div>

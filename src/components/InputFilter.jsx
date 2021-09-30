@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { CharacterContext } from '../context';
 import { SET_CHARACTERS_BY_INPUT } from '../types';
@@ -33,4 +34,9 @@ export const InputFilter = () => {
       </form>
     </div>
   );
+};
+
+InputFilter.propTypes = {
+  characters: PropTypes.arrayOf(PropTypes.object),
+  dispatchEvent: PropTypes.func,
 };

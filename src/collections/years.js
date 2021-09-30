@@ -8,4 +8,4 @@ export const years = [
   '47BBY',
   '24BBY',
   '57BBY',
-].sort();
+];
