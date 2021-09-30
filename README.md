@@ -1,5 +1,9 @@
 # swapi-ava-app
 
+App can be visited at Netlify
+Admin url: https://app.netlify.com/sites/swapi-ava-app-oskop
+Site url: https://swapi-ava-app-oskop.netlify.app
+
 #React application that displays a filterable list of characters from the movie franchise Star Wars. Querying data from an open API called SWAPI (Star Wars API).
 
 npm run server shoud be run to start App and fetch all json needed.

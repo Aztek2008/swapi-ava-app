@@ -62,6 +62,7 @@ export const OptionsForFilter = () => {
     if (states.yearMin === '' && states.yearMax === '') {
       dispatchEvent(types.SET_CHARACTERS_BY_YEAR_OPTION, []);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [states.filmUrl, states.speciesUrl, states.yearMin, states.yearMax]);
 
   const makeFilmUrlFromTitle = (filterValue) => {
@@ -69,6 +70,7 @@ export const OptionsForFilter = () => {
       if (filterValue === element.title) {
         optionsFilmUrl = element.url;
       }
+      return element.url;
     });
   };
 
@@ -77,6 +79,7 @@ export const OptionsForFilter = () => {
       if (filterValue === element.name) {
         optionsSpeciesUrl = element.url;
       }
+      return element.url;
     });
   };
 

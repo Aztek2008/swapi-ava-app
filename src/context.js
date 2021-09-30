@@ -5,7 +5,7 @@ import * as types from './types';
 export const CharacterContext = createContext();
 
 export const CharacterContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [onOrOption, setOnOrOption] = useState('');
   const [filmUrl, setfilmUrl] = useState('');
   const [filterByFilm, setfilterByFilm] = useState('');
@@ -61,7 +61,7 @@ export const CharacterContextProvider = ({ children }) => {
   };
 
   const states = {
-    loading,
+    // loading,
     onOrOption,
     filmUrl,
     yearMin,
