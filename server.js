@@ -26,6 +26,7 @@ const getData = async (query) => {
       `./src/collections/${query}.json`,
       JSON.stringify(json.results, null, 2)
     );
+    console.log(`${query}.json created at /collections`);
   } catch (error) {
     console.log(error);
   }
