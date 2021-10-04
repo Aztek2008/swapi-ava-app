@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { CharacterListItem } from '../CharacterListItem';
@@ -6,9 +6,7 @@ import characters from '../../collections/people.json';
 import { filterIntermediaryAction } from '../OptionsForFilter/OptionsForFilterSlice';
 
 export const CharacterList = () => {
-  // const [interFilter, setInterFilter] = useState([]);
   const dispatch = useDispatch();
-  const filteredByInput = useSelector((state) => state.filteredByInput);
   const { filmUrl, speciesUrl, minYear, maxYear, filteredByYear, interFilter } =
     useSelector((state) => state.filteredByOptions);
 
@@ -57,16 +55,16 @@ export const CharacterList = () => {
     filteredByYear,
   ]);
 
-  const currentCharacters =
-    filteredByInput.length > 0
-      ? filteredByInput
-      : // : filteredByFilm.length > 0
-        // ? filteredByFilm
-        // filteredBySpecies.length > 0
-        // ? filteredBySpecies :
-        // filteredByYear.length > 0
-        // ? filteredByYear
-        characters;
+  // const currentCharacters =
+  //   filteredByInput.length > 0
+  //     ? filteredByInput
+  // : filteredByFilm.length > 0
+  // ? filteredByFilm
+  // filteredBySpecies.length > 0
+  // ? filteredBySpecies :
+  // filteredByYear.length > 0
+  // ? filteredByYear
+  // characters;
 
   return (
     <div className='collection'>
