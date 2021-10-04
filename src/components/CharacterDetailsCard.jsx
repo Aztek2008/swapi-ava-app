@@ -13,13 +13,17 @@ export const CharacterDetailsCard = () => {
   const characterImg = `https://starwars-visualguide.com/assets/img//characters/${id}.jpg`;
   const titleStyle = { color: '#b88888', fontWeight: 900, fontSize: '32px' };
   const currentCharacter = characters[id - 1];
-  let characterFilms = [];
-  let characterShips = [];
+  let characterFilmsTitles = [];
+  let characterShipsTitles = [];
   let characterKind = '';
   let characterHomeworld = '';
 
-  makeStateFromUrls(currentCharacter.films, films, characterFilms);
-  makeStateFromUrls(currentCharacter.starships, starships, characterShips);
+  makeStateFromUrls(currentCharacter.films, films, characterFilmsTitles);
+  makeStateFromUrls(
+    currentCharacter.starships,
+    starships,
+    characterShipsTitles
+  );
 
   species.filter((element) => {
     if (currentCharacter.species[0] === element.url) {
@@ -49,7 +53,7 @@ export const CharacterDetailsCard = () => {
             <article className='card-content'>
               <div className='spanStyle'>
                 <span style={{ minWidth: '20%' }}>Films:</span>
-                <span> {characterFilms.join(', ')} </span>
+                <span> {characterFilmsTitles.join(', ')} </span>
               </div>
 
               <div className='spanStyle'>
@@ -60,8 +64,8 @@ export const CharacterDetailsCard = () => {
               <div className='spanStyle'>
                 <span style={{ minWidth: '20%' }}>Spaceships: </span>
                 <span>
-                  {characterShips.length > 0
-                    ? characterShips.join(', ')
+                  {characterShipsTitles.length > 0
+                    ? characterShipsTitles.join(', ')
                     : 'Not specified'}
                 </span>
               </div>
@@ -85,8 +89,8 @@ CharacterDetailsCard.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object),
   id: PropTypes.number,
   characterImg: PropTypes.string,
-  characterFilms: PropTypes.array,
-  characterShips: PropTypes.array,
+  characterFilmsTitles: PropTypes.array,
+  characterShipsTitles: PropTypes.array,
   characterHomeworld: PropTypes.string,
   characterKind: PropTypes.string,
   urlArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),

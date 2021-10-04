@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { CharacterContext } from '../context';
-import { SET_AND_OR_OPTION } from '../types';
+import { useDispatch } from 'react-redux';
+import { toggleANDAction, toggleORAction } from './AndOrTogglerSlice';
 
 export const AndOrToggler = () => {
-  const { dispatchEvent } = useContext(CharacterContext);
+  const dispatch = useDispatch();
 
   const onOrChecker = (e) => {
     const OR = e.target.checked;
     const AND = !e.target.checked;
 
-    OR && dispatchEvent(SET_AND_OR_OPTION, 'or');
-    AND && dispatchEvent(SET_AND_OR_OPTION, 'and');
+    OR && dispatch(toggleORAction());
+    AND && dispatch(toggleANDAction());
   };
 
   return (

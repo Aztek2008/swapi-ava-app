@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import { CharacterContext } from '../context';
-import { SET_CHARACTERS_BY_INPUT } from '../types';
-import characters from '../collections/people.json';
+import React from 'react';
+import characters from '../../collections/people.json';
+import { useDispatch } from 'react-redux';
+import { inputFilterAction } from './InputFilterSlice';
 
 export const InputFilter = () => {
-  const { dispatchEvent } = useContext(CharacterContext);
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     let filteredData = characters.filter((value) =>
       value.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
 
-    dispatchEvent(SET_CHARACTERS_BY_INPUT, filteredData);
+    dispatch(inputFilterAction(filteredData));
 
-    // CLEAR STATE ARRAY OF CHARACTERS WHEN INPUT currentCharacter
-    e.target.textLength === 0 && dispatchEvent(SET_CHARACTERS_BY_INPUT, []);
+    // CLEAR STATE ARRAY OF CHARACTERS WHEN INPUT EMPTY
+    e.target.textLength === 0 && dispatch(inputFilterAction([]));
   };
 
   return (
