@@ -4,9 +4,6 @@ import { years } from '../../collections/years';
 import films from '../../collections/films.json';
 import species from '../../collections/species.json';
 import {
-  filterByFilmAction,
-  filterBySpeciesAction,
-  filterByYearAction,
   setFilmUrlAction,
   setMaxYearAction,
   setMinYearAction,
@@ -17,47 +14,37 @@ export const OptionsForFilter = () => {
   const dispatch = useDispatch();
 
   const handleFilterChange = (event) => {
-    const value = event.target.value;
+    const targetValue = event.target.value;
+    const targetName = event.target.name;
 
-    if (event.target.name === 'movie-select') {
-      !value &&
-        dispatch(filterByFilmAction([])) &&
-        dispatch(setFilmUrlAction(''));
+    if (targetName === 'movie-select') {
+      !targetValue && dispatch(setFilmUrlAction(''));
 
       films.filter((element) => {
-        if (value === element.title) {
+        if (targetValue === element.title) {
           dispatch(setFilmUrlAction(element.url));
         }
         return element.url;
       });
     }
 
-    if (event.target.name === 'species-select') {
-      !value &&
-        dispatch(filterBySpeciesAction([])) &&
-        dispatch(setSpecieUrlAction(''));
+    if (targetName === 'species-select') {
+      !targetValue && dispatch(setSpecieUrlAction(''));
 
       species.filter((element) => {
-        if (value === element.name) {
+        if (targetValue === element.name) {
           dispatch(setSpecieUrlAction(element.url));
         }
         return element.url;
       });
     }
 
-    if (event.target.name === 'year-select-min') {
-      !value &&
-        dispatch(filterByYearAction([])) &&
-        dispatch(setMinYearAction(''));
-
-      dispatch(setMinYearAction(value));
+    if (targetName === 'year-select-min') {
+      dispatch(setMinYearAction(targetValue));
     }
 
-    if (event.target.name === 'year-select-max') {
-      !value && dispatch(filterByYearAction([]));
-      dispatch(setMaxYearAction(''));
-
-      dispatch(setMaxYearAction(value));
+    if (targetName === 'year-select-max') {
+      dispatch(setMaxYearAction(targetValue));
     }
   };
 

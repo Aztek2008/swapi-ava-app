@@ -1,11 +1,12 @@
+import { IActionWithStrings } from '../models';
 export const SET_CHARACTERS_BY_INPUT = 'SET_CHARACTERS_BY_INPUT';
 
-export const inputFilterAction = (payload) => ({
+export const inputFilterAction = (payload: string) => ({
   type: SET_CHARACTERS_BY_INPUT,
   payload,
 });
 
-export const inputFilterReducer = (state = [], action) => {
+export const inputFilterReducer = (state = '', action: IActionWithStrings) => {
   switch (action.type) {
     case SET_CHARACTERS_BY_INPUT:
       return action.payload;

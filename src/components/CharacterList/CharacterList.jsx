@@ -7,9 +7,10 @@ import { filterIntermediaryAction } from '../OptionsForFilter/OptionsForFilterSl
 
 export const CharacterList = () => {
   const dispatch = useDispatch();
-  const { filmUrl, speciesUrl, minYear, maxYear, filteredByYear, interFilter } =
-    useSelector((state) => state.filteredByOptions);
-
+  const filteredByInput = useSelector((state) => state.filteredByInput);
+  const { filmUrl, speciesUrl, minYear, maxYear, interFilter } = useSelector(
+    (state) => state.filteredByOptions
+  );
   const filmUrlExists = filmUrl?.length > 0;
   const speciesUrlExists = speciesUrl?.length > 0;
 
@@ -41,45 +42,27 @@ export const CharacterList = () => {
       (item) => parseFloat(item.birth_year) <= parseFloat(maxYear)
     );
 
-    if (filteredByYearMax.length > 0) {
+    if (filteredByYearMax?.length > 0) {
       dispatch(filterIntermediaryAction(filteredByYearMax));
     }
-    // eslint-disable-next-line
-  }, [
-    filmUrl,
-    speciesUrl,
-    filmUrlExists,
-    speciesUrlExists,
-    minYear,
-    maxYear,
-    filteredByYear,
-  ]);
 
-  // const currentCharacters =
-  //   filteredByInput.length > 0
-  //     ? filteredByInput
-  // : filteredByFilm.length > 0
-  // ? filteredByFilm
-  // filteredBySpecies.length > 0
-  // ? filteredBySpecies :
-  // filteredByYear.length > 0
-  // ? filteredByYear
-  // characters;
+    // eslint-disable-next-line
+  }, [filmUrl, speciesUrl, filmUrlExists, speciesUrlExists, minYear, maxYear]);
 
   return (
     <div className='collection'>
-      {interFilter.map((character, idx) => (
-        <CharacterListItem key={idx} character={character} id={idx + 1} />
-      ))}
+      {interFilter
+        .filter((item) =>
+          item.name.toLowerCase().includes(filteredByInput.trim().toLowerCase())
+        )
+        .map((character, idx) => (
+          <CharacterListItem key={idx} character={character} id={idx + 1} />
+        ))}
     </div>
   );
 };
 
 CharacterList.propTypes = {
-  filteredByInput: PropTypes.arrayOf(PropTypes.object),
-  filteredByFilm: PropTypes.arrayOf(PropTypes.object),
-  filteredBySpecies: PropTypes.arrayOf(PropTypes.object),
-  filteredByYear: PropTypes.arrayOf(PropTypes.object),
   characters: PropTypes.arrayOf(PropTypes.object),
   CharacterListItem: PropTypes.element,
 };

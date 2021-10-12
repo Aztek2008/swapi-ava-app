@@ -6,6 +6,7 @@ import 'materialize-css';
 
 export const App = () => {
   const routes = useRoutes();
+
   return (
     <Router>
       <div className='container'>

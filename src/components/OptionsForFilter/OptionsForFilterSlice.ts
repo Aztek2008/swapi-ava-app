@@ -1,47 +1,33 @@
-export const SET_CHARACTERS_BY_FILM_OPTION = 'SET_CHARACTERS_BY_FILM_OPTION';
+import { IActionWithStrAndArr } from '../models';
+import { ICharacter } from '../models';
+
 export const SET_FILTER_BY_FILM_OPTION = 'SET_FILTER_BY_FILM_OPTION';
 export const SET_FILTER_BY_SPECIES_OPTION = 'SET_FILTER_BY_SPECIES_OPTION';
-export const SET_CHARACTERS_BY_SPECIES_OPTION =
-  'SET_CHARACTERS_BY_SPECIES_OPTION';
-export const SET_CHARACTERS_BY_YEAR_OPTION = 'SET_CHARACTERS_BY_YEAR_OPTION';
 export const SET_MIN_YEAR_OPTION = 'SET_MIN_YEAR_OPTION';
 export const SET_MAX_YEAR_OPTION = 'SET_MAX_YEAR_OPTION';
 export const SET_INTERMEDIATE_FILTER = 'SET_INTERMEDIATE_FILTER';
 
-export const filterByFilmAction = (payload) => ({
-  type: SET_CHARACTERS_BY_FILM_OPTION,
-  payload,
-});
-
-export const setFilmUrlAction = (payload) => ({
+export const setFilmUrlAction = (payload: string) => ({
   type: SET_FILTER_BY_FILM_OPTION,
   payload,
 });
 
-export const filterBySpeciesAction = (payload) => ({
-  type: SET_CHARACTERS_BY_SPECIES_OPTION,
-  payload,
-});
-
-export const setSpecieUrlAction = (payload) => ({
+export const setSpecieUrlAction = (payload: string) => ({
   type: SET_FILTER_BY_SPECIES_OPTION,
   payload,
 });
 
-export const filterByYearAction = (payload) => ({
-  type: SET_CHARACTERS_BY_YEAR_OPTION,
-  payload,
-});
-export const setMinYearAction = (payload) => ({
+export const setMinYearAction = (payload: string) => ({
   type: SET_MIN_YEAR_OPTION,
   payload,
 });
-export const setMaxYearAction = (payload) => ({
+
+export const setMaxYearAction = (payload: string) => ({
   type: SET_MAX_YEAR_OPTION,
   payload,
 });
 
-export const filterIntermediaryAction = (payload) => ({
+export const filterIntermediaryAction = (payload: ICharacter[]) => ({
   type: SET_INTERMEDIATE_FILTER,
   payload,
 });
@@ -54,32 +40,20 @@ const initialState = {
   interFilter: [],
 };
 
-export const optionsFilterReducer = (state = initialState, action) => {
+export const optionsFilterReducer = (
+  state = initialState,
+  action: IActionWithStrAndArr
+) => {
   switch (action.type) {
-    case SET_CHARACTERS_BY_FILM_OPTION:
-      return {
-        ...state,
-        filteredByFilm: action.payload,
-      };
     case SET_FILTER_BY_FILM_OPTION:
       return {
         ...state,
         filmUrl: action.payload,
       };
-    case SET_CHARACTERS_BY_SPECIES_OPTION:
-      return {
-        ...state,
-        filteredBySpecies: action.payload,
-      };
     case SET_FILTER_BY_SPECIES_OPTION:
       return {
         ...state,
         speciesUrl: action.payload,
-      };
-    case SET_CHARACTERS_BY_YEAR_OPTION:
-      return {
-        ...state,
-        filteredByYear: action.payload,
       };
     case SET_MIN_YEAR_OPTION:
       return {

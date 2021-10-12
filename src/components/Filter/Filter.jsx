@@ -5,9 +5,6 @@ import { AndOrToggler } from '../AndOrToggler/AndOrToggler';
 import { OptionsForFilter } from '../OptionsForFilter/OptionsForFilter';
 import { useDispatch } from 'react-redux';
 import {
-  filterByFilmAction,
-  filterBySpeciesAction,
-  filterByYearAction,
   setFilmUrlAction,
   setMaxYearAction,
   setMinYearAction,
@@ -38,12 +35,8 @@ export const Filter = () => {
   const clearOptions = () => {
     selectInputs.forEach((input) => (input.value = 'Choose...'));
 
-    dispatch(filterByFilmAction([]));
     dispatch(setFilmUrlAction(''));
-    dispatch(filterBySpeciesAction([]));
     dispatch(setSpecieUrlAction(''));
-
-    dispatch(filterByYearAction([]));
     dispatch(setMinYearAction(''));
     dispatch(setMaxYearAction(''));
   };
@@ -69,6 +62,5 @@ export const Filter = () => {
 Filter.propTypes = {
   InputFilter: PropTypes.element,
   AndOrToggler: PropTypes.element,
-  CharacterContext: PropTypes.element,
   OptionsForFilter: PropTypes.element,
 };

@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import characters from '../../collections/people.json';
 import { useDispatch } from 'react-redux';
 import { inputFilterAction } from './InputFilterSlice';
 
@@ -8,14 +6,7 @@ export const InputFilter = () => {
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
-    let filteredData = characters.filter((value) =>
-      value.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-
-    dispatch(inputFilterAction(filteredData));
-
-    // CLEAR STATE ARRAY OF CHARACTERS WHEN INPUT EMPTY
-    e.target.textLength === 0 && dispatch(inputFilterAction([]));
+    dispatch(inputFilterAction(e.target.value));
   };
 
   return (
@@ -37,6 +28,5 @@ export const InputFilter = () => {
 };
 
 InputFilter.propTypes = {
-  characters: PropTypes.arrayOf(PropTypes.object),
-  dispatchEvent: PropTypes.func,
+  dispatch: PropTypes.func,
 };
