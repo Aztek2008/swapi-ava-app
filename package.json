@@ -7,6 +7,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.21.4",
     "fs": "*",
     "materialize-css": "^1.0.0-rc.2",

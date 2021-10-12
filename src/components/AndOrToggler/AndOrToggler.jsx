@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { toggleANDAction, toggleORAction } from './AndOrTogglerSlice';
+import { toggleANDAction, toggleORAction } from './toggleOptionSlice';
 
 export const AndOrToggler = () => {
   const dispatch = useDispatch();

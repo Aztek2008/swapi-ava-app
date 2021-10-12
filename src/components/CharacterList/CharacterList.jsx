@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { CharacterListItem } from '../CharacterListItem';
 import characters from '../../collections/people.json';
-import { filterIntermediaryAction } from '../OptionsForFilter/OptionsForFilterSlice';
+import { filterIntermediaryAction } from '../OptionsForFilter/filterOptionsSlice';
 
 export const CharacterList = () => {
   const dispatch = useDispatch();
-  const filteredByInput = useSelector((state) => state.filteredByInput);
+  const filteredByInput = useSelector((state) => state.filteredByInput.value);
   const { filmUrl, speciesUrl, minYear, maxYear, interFilter } = useSelector(
     (state) => state.filteredByOptions
   );

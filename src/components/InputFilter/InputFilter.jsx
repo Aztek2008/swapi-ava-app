@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { inputFilterAction } from './InputFilterSlice';
+import { inputFilterAction } from './inputFilterSlice';
 
 export const InputFilter = () => {
   const dispatch = useDispatch();

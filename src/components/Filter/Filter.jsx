@@ -9,7 +9,7 @@ import {
   setMaxYearAction,
   setMinYearAction,
   setSpecieUrlAction,
-} from '../OptionsForFilter/OptionsForFilterSlice';
+} from '../OptionsForFilter/filterOptionsSlice';
 
 let selectInputs;
 const btnStyle = { position: 'absolute', top: '100px', fontSize: '12px' };

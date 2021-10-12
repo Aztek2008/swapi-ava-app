@@ -5,10 +5,10 @@ import films from '../../collections/films.json';
 import species from '../../collections/species.json';
 import {
   setFilmUrlAction,
-  setMaxYearAction,
-  setMinYearAction,
   setSpecieUrlAction,
-} from './OptionsForFilterSlice';
+  setMinYearAction,
+  setMaxYearAction,
+} from './filterOptionsSlice';
 
 export const OptionsForFilter = () => {
   const dispatch = useDispatch();
