@@ -1,5 +1,5 @@
+import { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { years } from '../../collections/years';
 import films from '../../collections/films.json';
 import species from '../../collections/species.json';
@@ -13,7 +13,7 @@ import {
 export const OptionsForFilter = () => {
   const dispatch = useDispatch();
 
-  const handleFilterChange = (event) => {
+  const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const targetValue = event.target.value;
     const targetName = event.target.name;
 
@@ -55,9 +55,7 @@ export const OptionsForFilter = () => {
     >
       <div className='input-field col s12' id='selectDiv'>
         <select name='movie-select' id='select-movie'>
-          <option value='' defaultValue>
-            Choose...
-          </option>
+          <option value=''>Choose...</option>
           {films.map((film) => (
             <option
               key={film.episode_id}
@@ -72,11 +70,9 @@ export const OptionsForFilter = () => {
       </div>
       <div className='input-field col s12'>
         <select name='species-select' id='select-species'>
-          <option value='' defaultValue>
-            Choose...
-          </option>
+          <option value=''>Choose...</option>
           {species.map((specie) => (
-            <option key={specie.url} value={specie.name} name='species'>
+            <option key={specie.url} value={specie.name}>
               {specie.name}
             </option>
           ))}
@@ -85,9 +81,7 @@ export const OptionsForFilter = () => {
       </div>
       <div className='input-field col s10'>
         <select name='year-select-min' id='select-year-min'>
-          <option value='' defaultValue>
-            Choose min...
-          </option>
+          <option value=''>Choose min...</option>
           {years.map((year, idx) => (
             <option key={idx} value={year}>
               {year}
@@ -96,9 +90,7 @@ export const OptionsForFilter = () => {
         </select>
         <label>Birth year range</label>
         <select name='year-select-max' id='select-year-max'>
-          <option value='' defaultValue>
-            Choose max...
-          </option>
+          <option value=''>Choose max...</option>
           {years.map((year, idx) => (
             <option key={idx} value={year}>
               {year}
@@ -109,10 +101,4 @@ export const OptionsForFilter = () => {
       </div>
     </section>
   );
-};
-
-OptionsForFilter.propTypes = {
-  years: PropTypes.arrayOf(PropTypes.string),
-  films: PropTypes.arrayOf(PropTypes.object),
-  species: PropTypes.arrayOf(PropTypes.object),
 };

@@ -4,12 +4,14 @@ import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import express from 'express';
+import request from 'request';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
 import fs from 'fs';
 import router from './router/index.js';
 import errorMiddleware from './middlewares/error-middleware.js';
+// import characters from '../src/collections/people.js';
 
 dotenv.config();
 
@@ -44,6 +46,23 @@ const getJsonData = async (query) => {
   }
 };
 
+const getImages = async (id) => {
+  try {
+    const url = `https://starwars-visualguide.com/assets/img//characters/${id}.jpg`;
+    const pathTo = `../src/images/${id}.jpg`;
+
+    request.head(url, (err, res, body) => {
+      request(url)
+        .pipe(fs.createWriteStream(pathTo))
+        .on('close', function () {
+          console.log('✅ Images downloading done!');
+        });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const pathToPeopleJson = '../src/collections/people.json';
 
 if (!fs.existsSync(pathToPeopleJson)) {
@@ -52,6 +71,24 @@ if (!fs.existsSync(pathToPeopleJson)) {
   getJsonData('species');
   getJsonData('starships');
   getJsonData('planets');
+}
+
+if (fs.existsSync(pathToPeopleJson)) {
+  fs.mkdir('../src/images', { recursive: true }, (err) => {
+    if (err) throw err;
+  });
+
+  fs.readFile(pathToPeopleJson, 'utf-8', async (err, jsonStr) => {
+    if (err) {
+      return console.log(`err`, err);
+    }
+
+    let characters = await JSON.parse(jsonStr);
+
+    await characters?.forEach(async (_, idx) => {
+      await getImages(idx);
+    });
+  });
 }
 
 // app.get('/*', (req, res) =>

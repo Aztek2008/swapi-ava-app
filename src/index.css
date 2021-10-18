@@ -1,14 +1,17 @@
 @import '~materialize-css/dist/css/materialize.min.css';
 
+body {
+  background-color: #323232;
+  color: blanchedalmond;
+}
+
 li > span,
 .select-dropdown {
   font-size: 10px !important;
+  color: inherit;
 }
 
 label {
   font-size: 12px !important;
-}
-
-.spanStyle {
-  display: flex;
+  color: inherit;
 }

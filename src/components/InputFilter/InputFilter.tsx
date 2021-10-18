@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { inputFilterAction } from './inputFilterSlice';
 
 export const InputFilter = () => {
   const dispatch = useDispatch();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLFormElement>): void => {
     dispatch(inputFilterAction(e.target.value));
   };
 
@@ -25,8 +25,4 @@ export const InputFilter = () => {
       </form>
     </div>
   );
-};
-
-InputFilter.propTypes = {
-  dispatch: PropTypes.func,
 };

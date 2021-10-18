@@ -4,10 +4,10 @@ const andOrTogglerSlice = createSlice({
   name: 'toggleOption',
   initialState: { value: 'AND' },
   reducers: {
-    toggleORAction(state) {
+    toggleORAction(state: { value: string }) {
       state.value = 'OR';
     },
-    toggleANDAction(state) {
+    toggleANDAction(state: { value: string }) {
       state.value = 'AND';
     },
   },

@@ -1,10 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export const initialInputFilterState = {
+  value: '',
+};
 
 const inputFilterSlice = createSlice({
   name: 'filteredByInput',
-  initialState: { value: '' },
+  initialState: initialInputFilterState,
   reducers: {
-    inputFilterAction(state, action) {
+    inputFilterAction(state, action: PayloadAction<string>) {
       state.value = action.payload;
     },
   },

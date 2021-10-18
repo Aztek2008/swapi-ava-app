@@ -1,23 +1,28 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { CharacterListItem } from '../CharacterListItem';
-import characters from '../../collections/people.json';
 import { filterIntermediaryAction } from '../OptionsForFilter/filterOptionsSlice';
+import { IFilterByInputState, IOptionsState } from '../../typings/models';
+import characters from '../../collections/people.json';
 
 export const CharacterList = () => {
   const dispatch = useDispatch();
-  const filteredByInput = useSelector((state) => state.filteredByInput.value);
-  const { filmUrl, speciesUrl, minYear, maxYear, interFilter } = useSelector(
-    (state) => state.filteredByOptions
+
+  const filteredByInput = useSelector(
+    (state: IFilterByInputState) => state.filteredByInput.value
   );
+
+  const { filmUrl, speciesUrl, minYear, maxYear, interFilter } = useSelector(
+    (state: { filteredByOptions: IOptionsState }) => state.filteredByOptions
+  );
+
   const filmUrlExists = filmUrl?.length > 0;
   const speciesUrlExists = speciesUrl?.length > 0;
 
   useEffect(() => {
     dispatch(filterIntermediaryAction(characters));
 
-    if (filmUrlExists > 0) {
+    if (filmUrlExists) {
       const filmList = interFilter.filter((item) =>
         item.films.includes(filmUrl)
       );
@@ -60,9 +65,4 @@ export const CharacterList = () => {
         ))}
     </div>
   );
-};
-
-CharacterList.propTypes = {
-  characters: PropTypes.arrayOf(PropTypes.object),
-  CharacterListItem: PropTypes.element,
 };

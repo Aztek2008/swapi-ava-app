@@ -8,6 +8,7 @@
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
+    "@types/materialize-css": "^1.0.11",
     "axios": "^0.21.4",
     "fs": "*",
     "materialize-css": "^1.0.0-rc.2",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.1",
     "express-favicon": "^2.0.1",
     "nodemon": "^2.0.13"
   }

@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { IListItemProps } from '../typings/models';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-export const CharacterListItem = ({ character, id }) => {
+export const CharacterListItem = ({ character, id }: IListItemProps) => {
   const history = useHistory();
   return (
     <NavLink
@@ -14,9 +13,4 @@ export const CharacterListItem = ({ character, id }) => {
       {character.name}
     </NavLink>
   );
-};
-
-CharacterListItem.propTypes = {
-  character: PropTypes.object,
-  id: PropTypes.number,
 };

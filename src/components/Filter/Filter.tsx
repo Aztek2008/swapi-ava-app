@@ -1,29 +1,23 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { InputFilter } from '../InputFilter/InputFilter';
 import { AndOrToggler } from '../AndOrToggler/AndOrToggler';
 import { OptionsForFilter } from '../OptionsForFilter/OptionsForFilter';
-import { useDispatch } from 'react-redux';
 import {
   setFilmUrlAction,
   setMaxYearAction,
   setMinYearAction,
   setSpecieUrlAction,
 } from '../OptionsForFilter/filterOptionsSlice';
+import * as M from 'materialize-css';
+import css from './Filter.module.css';
 
-let selectInputs;
-const btnStyle = { position: 'absolute', top: '100px', fontSize: '12px' };
-const togglerContStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-  height: 'auto',
-};
+let selectInputs: NodeListOf<HTMLInputElement> | null;
 
 export const Filter = () => {
   useEffect(() => {
     // INITIATION OPTIONS DROPDOWN
-    window.M.AutoInit();
+    M.AutoInit();
 
     selectInputs = document.querySelectorAll(
       '.select-dropdown.dropdown-trigger'
@@ -33,7 +27,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
 
   const clearOptions = () => {
-    selectInputs.forEach((input) => (input.value = 'Choose...'));
+    selectInputs?.forEach((input) => (input.value = 'Choose...'));
 
     dispatch(setFilmUrlAction(''));
     dispatch(setSpecieUrlAction(''));
@@ -44,23 +38,16 @@ export const Filter = () => {
   return (
     <section style={{ position: 'relative' }}>
       <button
-        style={btnStyle}
-        className='waves-effect waves-light btn'
+        className={`waves-effect waves-light btn ${css.btnStyle}`}
         onClick={clearOptions}
       >
         Clear all
       </button>
       <OptionsForFilter />
-      <div style={togglerContStyle}>
+      <div className={css.togglerContStyle}>
         <AndOrToggler />
         <InputFilter />
       </div>
     </section>
   );
-};
-
-Filter.propTypes = {
-  InputFilter: PropTypes.element,
-  AndOrToggler: PropTypes.element,
-  OptionsForFilter: PropTypes.element,
 };

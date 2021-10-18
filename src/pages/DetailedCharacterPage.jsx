@@ -1,5 +1,4 @@
-import React from 'react';
-import { CharacterDetailsCard } from '../components/CharacterDetailsCard';
+import { CharacterDetailsCard } from '../components/CharacterDetailsCard/CharacterDetailsCard';
 
 export const DetailedCharacterPage = () => {
   return (

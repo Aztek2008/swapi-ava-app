@@ -1,0 +1,19 @@
+.titleStyle {
+  color: #b88888;
+  font-weight: 900;
+  font-size: 32px;
+}
+
+.cardTitle {
+  position: relative;
+  display: flex;
+}
+
+.spanStyle {
+  display: flex;
+}
+
+article > span {
+  padding: 0 10px;
+  font-weight: 900;
+}

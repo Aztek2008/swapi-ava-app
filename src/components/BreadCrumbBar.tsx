@@ -1,9 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const BreadCrumbBar = () => {
-  const usePathname = () => {
+  const usePathname = (): string => {
     const location = useLocation();
     return location.pathname;
   };
